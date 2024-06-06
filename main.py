@@ -67,7 +67,7 @@ gen_job_ss = GenJobSS(factory=factory,
                       mutation_probability_convergence_percentage=0.5,
                       boundary_swap_probability=0.01,
                       initial_bs_probability=0.1,
-                      bs_probability_convergence_percentage=0.1)lö+
+                      bs_probability_convergence_percentage=0.1)
 
 avg_ct, avg_tdns, best_solution = gen_job_ss.run_ga()
 '''
