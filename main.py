@@ -14,13 +14,11 @@ MAX_PROCESSING_TIME = 9
 MIN_PROCESSING_TIME = 3
 STD = 3
 
-
 csv_file = pd.read_csv('JobPtimes.csv')
 
 stage_values = []
 for row in csv_file.iterrows():
     stage_values.append(row[1].values)
-
 
 due_dates = csv_file['60']
 csv_file = csv_file.drop(['60'], axis=1)
@@ -50,11 +48,7 @@ jobs = JobCreator.create_jobs(NUM_OF_MACHINES_PER_STAGE,
                               MIN_PROCESSING_TIME,
                               STD)
 
-
-
-
 factory = FactoryCreator.create_factory(NUM_OF_MACHINES_PER_STAGE, NUM_OF_STAGES, converted_job_values)
-
 
 gen_job_ss = GenJobSS(factory=factory,
                       initial_generation_search_length=5,
