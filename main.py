@@ -70,50 +70,9 @@ gen_job_ss = GenJobSS(factory=factory,
                       bs_probability_convergence_percentage=0.1)
 
 avg_ct, avg_tdns, best_solution = gen_job_ss.run_ga()
-'''
-plt.plot(avg_ct)
-plt.xlabel('Generations')
-plt.ylabel('Completion Time')
-plt.title('Average Completion Time Acroos Generations')
-plt.show()
-'''
 
-[print(job.processing_time) for job in converted_job_values]
 
-tasks = {}
-for i in range(len(factory.jobs)):
-    job = factory.jobs[i]
-    for f in range(NUM_OF_STAGES):
-        tasks[f"Job {job.id + 1}"] = {"start":job.start_times[f], "end":job.end_times[f]}
 
-    # Generate Gantt Chart
-fig, ax = plt.subplots(figsize=(10, 6))
-colors = plt.cm.tab10.colors
-yticks = []
-yticklabels = []
-
-for i in range(len(best_solution.chromosome)):
-    for f in range(len(best_solution.chromosome[i])):
-        yticks.append(len(yticks))
-        yticklabels.append(f'Stage {i + 1} Machine {f + 1}')
-        for n in range(len(best_solution.chromosome[i][f])):
-            job = [_job for _job in factory.jobs if _job.id + 1 == best_solution.chromosome[i][f][n]][0]
-            end_time = job.end_times[i]
-            start_time = job.start_times[i]
-            id = job.id
-
-            ax.barh(len(yticks) - 1, end_time - start_time, left=start_time,
-                    color=colors[id % len(colors)], edgecolor='black', height=0.4)
-
-            ax.text(start_time + (end_time - start_time) / 2, len(yticks) - 1,
-                    f'Job {id + 1}', ha='center', va='center', color='white', fontsize=8)
-
-ax.set_yticks(yticks)
-ax.set_yticklabels(yticklabels)
-ax.set_xlabel('Time')
-ax.set_title('Gantt Chart of Job Processing')
-plt.tight_layout()
-plt.show()
 
 
 
